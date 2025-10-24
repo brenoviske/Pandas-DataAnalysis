@@ -16,9 +16,11 @@ df['Revenue'] = df['price'] * df['sales_last_month'] # Creating the revenue colu
 df['Above_avg_price']= (df['price'] > np.mean(df['price'])).astype(int)
 df['Above_avg_sales_lt_month']= (df['sales_last_month'] > np.mean(df['sales_last_month'])).astype(int)
 
-
+abv_avg = sum(df['Above_avg_price'])
+low_avg = len(df['Above_avg_price']) - abv_avg
 print(df) # Seeing after eventual changes
 
+print(f'Há {abv_avg} categorias/subategorias acima do preço médio e {low_avg} categorias/subcategorias abaixo do preço médio')
 per_category = df.groupby('category').agg(
     Receita_por_categoria = ('Revenue','sum'),
     Receita_média_categoria = ('Revenue','mean'),
@@ -85,3 +87,43 @@ plt.xlabel('Price')
 plt.ylabel('Sales Last Month')
 plt.legend()
 plt.show()
+
+# =========================
+# Analyzing parameters per Category
+# ==========================
+
+plt.figure( figsize = (10,7))
+plt.bar(per_category.index, per_category['Receita_por_categoria'], label = 'Revenue per Category' , color = 'skyblue')
+plt.xlabel('Categorias')
+plt.ylabel('Receita')
+plt.title('Receita por Categoria')
+plt.legend()
+plt.show()
+
+plt.figure(figsize = (10,7))
+plt.bar(per_category.index,per_category['Vendas_por_categoria'], label = 'Vendas port categoria', color = 'red')
+plt.xlabel('Categorias')
+plt.ylabel('Vendas')
+plt.title('Vendas por Categoria')
+plt.legend()
+plt.show()
+
+#=================================
+# Analyzing parameters per Subcategory
+# =================================
+
+plt.figure( figsize = (10,7))
+plt.bar(per_subcategory.index, per_subcategory['Receita_por_subcategoria'] , color = 'orange')
+plt.xlabel('Subcategoria')
+plt.ylabel('Receita')
+plt.legend()
+plt.show()
+
+plt.figure( figsize = (10,7))
+plt.bar(per_subcategory.index, per_subcategory['Vendas_por_subcategoria'] , color = 'green')
+plt.xlabel('Subcategoria')
+plt.ylabel('Vendas')
+plt.title('Vendas por subcategoria')
+plt.legend()
+plt.show()
+
