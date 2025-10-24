@@ -18,9 +18,10 @@ df['Above_avg_sales_lt_month']= (df['sales_last_month'] > np.mean(df['sales_last
 
 abv_avg = sum(df['Above_avg_price'])
 low_avg = len(df['Above_avg_price']) - abv_avg
-print(df) # Seeing after eventual changes
 
+print(df) # Seeing after eventual changes
 print(f'Há {abv_avg} categorias/subategorias acima do preço médio e {low_avg} categorias/subcategorias abaixo do preço médio')
+
 per_category = df.groupby('category').agg(
     Receita_por_categoria = ('Revenue','sum'),
     Receita_média_categoria = ('Revenue','mean'),
