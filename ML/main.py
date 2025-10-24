@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 # Reading csv and manipulating with numpy
 # =======================================
 
-df = pd.read_csv('data.csv')
+df = pd.read_csv('./csv/data.csv')
 print(df) # See if the data was loaded
 
-df['Revenue'] = df['price'] * df['sales_last_month']
+df['Revenue'] = df['price'] * df['sales_last_month'] # Creating the revenue column by multiplying the two columns of price and sales_last_month
 df['Above_avg_price']= (df['price'] > np.mean(df['price'])).astype(int)
 df['Above_avg_sales_lt_month']= (df['sales_last_month'] > np.mean(df['sales_last_month'])).astype(int)
 
@@ -23,14 +23,18 @@ per_category = df.groupby('category').agg(
     Receita_por_categoria = ('Revenue','sum'),
     Receita_média_categoria = ('Revenue','mean'),
     Vendas_por_categoria = ('sales_last_month','sum'),
-    Média_venda_categoria = ('sales_last_month','mean')
+    Média_venda_categoria = ('sales_last_month','mean'),
+    DiscontoMedio_por_categoria = ( 'discount' , 'mean'),
+    Avg_rating_categoria = ('rating', 'mean')
 )
 
 per_subcategory = df.groupby('subcategory').agg(
     Receita_por_subcategoria = ('Revenue','sum'),
     Media_receita_subcategoria = ('Revenue','mean'),
     Vendas_por_subcategoria = ('sales_last_month','sum'),
-    Média_venda_subcategoria = ('sales_last_month','mean')
+    Média_venda_subcategoria = ('sales_last_month','mean'),
+    DiscontoMédio_por_subcategoria = ('discount','mean'),
+    Average_rating_subcategoria = ('rating', 'mean')
 )
 
 # =========================================================
@@ -59,8 +63,8 @@ print('MSE:', mean_squared_error(y_test,y_pred))
 # Exporting files
 # ================
 
-per_category.to_csv('dataPerCategory.csv', index = True)
-per_subcategory.to_csv('dataPerSubCategory.csv' , index = True)
+per_category.to_csv('./csv/dataPerCategory.csv', index = True)
+per_subcategory.to_csv('./csv/dataPerSubCategory.csv' , index = True)
 
 # ===================
 # Visualizing the data
