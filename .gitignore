@@ -1,2 +1,3 @@
 env/ # Ignoring virtual environment folder
+diceGameML/__pycache__
 
