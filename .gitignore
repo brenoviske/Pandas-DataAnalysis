@@ -1,3 +1,6 @@
 env/ # Ignoring virtual environment folder
-diceGameML/__pycache__
+diceGame ML/__pycache__
+.idea
+
+
 
